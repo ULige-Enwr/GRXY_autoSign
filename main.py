@@ -107,10 +107,10 @@ def getWxfwdttoken(jid,code):
     }
     postUrl = "http://xy.4009955.com/wxfwdt-api/layout_01_01/login/loginYdBycode"
     responseRes = requests.post(postUrl, json=data, headers=header)
-    x = "wxtoken:" + responseRes.content.decode().split('"')[25]
+    x = "wxtoken:" + responseRes.json()["data"]["content"]["token"]
     print(x)
     PROCESS.append(x)
-    return responseRes.content.decode().split('"')[25]
+    return responseRes.json()["data"]["content"]["token"]
 
 
 
@@ -164,7 +164,7 @@ def submit(jid, jktoken, todayid):
     }
     data = {
         "list": [{"zjlx": 3, "list": [{"column": "c001", "content": "校内"}, {"column": "c002", "content": "校外"}],
-                  "value": ["c002"]}, {"zjlx": 5, "list": [{"column": "gSheng", "content": PROVINCE},
+                  "value": ["c001"]}, {"zjlx": 5, "list": [{"column": "gSheng", "content": PROVINCE},
                                                            {"column": "gShi", "content": CITY},
                                                            {"column": "gQu", "content": DISTRICT}], "value": ""},
                  {"zjlx": 3, "list": [{"column": "c010", "content": "37.2℃及以下"},
@@ -187,7 +187,7 @@ def submit(jid, jktoken, todayid):
                                       {"column": "c009", "content": "黄码"}, {"column": "c010", "content": "红码"}],
                   "value": ["c007"]}, {"zjlx": 3, "list": [{"column": "c028", "content": "未出校"},
                                                            {"column": "c029", "content": "出校，未离开威海（须填报出行方式和外出地点）"},
-                                                           {"column": "c030", "content": "离威"}], "value": ["c030"]},
+                                                           {"column": "c030", "content": "离威"}], "value": ["c028"]},
                  {"zjlx": 2, "list": [{"column": "c031", "content": ""}], "value": ""},
                  {"zjlx": 3, "list": [{"column": "c021", "content": "是"}, {"column": "c022", "content": "否"}],
                   "value": ["c022"]}, {"zjlx": 1, "list": [{"column": "c023", "content": ""}], "value": ""},
